@@ -7,7 +7,6 @@ public class Matrix {
     private int[][] matrixArray;
     private int row;
     private int column;
-    private int error;
 
     public int[][] getMatrixArray() {
         return matrixArray;
@@ -21,29 +20,23 @@ public class Matrix {
         return column;
     }
 
-    public int getError() {
-        return error;
-    }
-
-    public void setError(int error) {
-        this.error = error;
-    }
-
     public Matrix(int row, int column) {
         this.matrixArray = new int[row][column];
-        for (int i = 0; i < this.matrixArray.length; i++) {
-            Arrays.fill(this.matrixArray[i], 0);
-        }
         this.row = row;
         this.column = column;
-        this.error = -1;
+        this.init();
     }
 
     public Matrix(int[][] matrixArray) {
         this.matrixArray = matrixArray;
         this.row = matrixArray.length;
         this.column = matrixArray[0].length;
-        this.error = -1;
+    }
+
+    public void init() {
+        for (int i = 0; i < this.matrixArray.length; i++) {
+            Arrays.fill(this.matrixArray[i], 0);
+        }
     }
 
     public int getCell(int row, int column) {
@@ -54,19 +47,21 @@ public class Matrix {
         this.matrixArray[row][column] = value;
     }
 
-    /*public void print() {
+    public boolean equals(Matrix matrixToEqual) {
+        if (this.getRow() != matrixToEqual.getRow() || this.getColumn() != matrixToEqual.getColumn()) {
+            return false;
+        }
         for (int i = 0; i < this.matrixArray.length; i++) {
             for (int j = 0; j < this.matrixArray[i].length; j++) {
-                System.out.print(this.matrixArray[i][j] + "\t");
+                if (this.getCell(i, j) != matrixToEqual.getCell(i, j)) {
+                    return false;
+                }
             }
-            System.out.print("\n");
         }
-    }*/
+        return true;
+    }
 
     public String toString() {
-        if (this.error != -1) {
-            return MatrixErrors.getErrorByID(this.error).toString();
-        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.matrixArray.length; i++) {
             for (int j = 0; j < this.matrixArray[i].length; j++) {
