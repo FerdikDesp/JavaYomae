@@ -34,8 +34,8 @@ public class Matrix {
     }
 
     public void init() {
-        for (int i = 0; i < this.matrixArray.length; i++) {
-            Arrays.fill(this.matrixArray[i], 0);
+        for (int[] ints : this.matrixArray) {
+            Arrays.fill(ints, 0);
         }
     }
 
